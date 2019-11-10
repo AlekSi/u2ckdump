@@ -1,0 +1,8 @@
+/res/*
+!/res/*.sample
+*\~
+*.swp
+*.log
+u2_ckdump
+u2_ckdump.sh
+
