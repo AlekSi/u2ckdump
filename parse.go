@@ -427,7 +427,7 @@ func Parse(dumpfile string) error {
 					v0.RegistryUpdateTime = r.UpdateTime
 					DumpSnap.Content.C[v.Id] = v0
 					// make updates
-					bufi = make(map[uint32]struct{})
+					bufi = make(map[uint32]struct{}, len(v.Ip))
 					for i := range v.Ip {
 						ip := ip2i(v.Ip[i].Ip)
 						AddIP4(DumpSnap.Ip, ip, v.Id)
@@ -441,7 +441,7 @@ func Parse(dumpfile string) error {
 						}
 					}
 					bufi = nil
-					buf = make(map[string]struct{})
+					buf = make(map[string]struct{}, len(v.Ip6))
 					for i := range v.Ip6 {
 						ip6 := string(net.ParseIP(v.Ip6[i].Ip6))
 						AddRes(DumpSnap.Ip6, ip6, v.Id)
@@ -454,7 +454,7 @@ func Parse(dumpfile string) error {
 							DelRes(DumpSnap.Ip6, ip6, o.Id)
 						}
 					}
-					buf = make(map[string]struct{})
+					buf = make(map[string]struct{}, len(v.Subnet))
 					for i := range v.Subnet {
 						AddRes(DumpSnap.Subnet, v.Subnet[i].Subnet, v.Id)
 						buf[v.Subnet[i].Subnet] = struct{}{}
@@ -465,7 +465,7 @@ func Parse(dumpfile string) error {
 							DelRes(DumpSnap.Subnet, o.Subnet[i].Subnet, o.Id)
 						}
 					}
-					buf = make(map[string]struct{})
+					buf = make(map[string]struct{}, len(v.Subnet6))
 					for i := range v.Subnet6 {
 						AddRes(DumpSnap.Subnet6, v.Subnet6[i].Subnet6, v.Id)
 						buf[v.Subnet6[i].Subnet6] = struct{}{}
@@ -476,7 +476,7 @@ func Parse(dumpfile string) error {
 							DelRes(DumpSnap.Subnet6, o.Subnet6[i].Subnet6, o.Id)
 						}
 					}
-					buf = make(map[string]struct{})
+					buf = make(map[string]struct{}, len(v.Url))
 					for i := range v.Url {
 						_url := NormalizeUrl(v.Url[i].Url)
 						AddRes(DumpSnap.Url, _url, v.Id)
@@ -492,7 +492,7 @@ func Parse(dumpfile string) error {
 							DelRes(DumpSnap.Url, _url, o.Id)
 						}
 					}
-					buf = make(map[string]struct{})
+					buf = make(map[string]struct{}, len(v.Domain))
 					for i := range v.Domain {
 						_domain := NormalizeDomain(v.Domain[i].Domain)
 						AddRes(DumpSnap.Domain, _domain, v.Id)
